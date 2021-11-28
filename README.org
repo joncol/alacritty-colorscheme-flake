@@ -1,0 +1,5 @@
+* Introduction
+
+This is a Nix flake for [[https://github.com/toggle-corp/alacritty-colorscheme][alacritty-colorscheme]].
+
+It was created using [[https://github.com/nix-community/poetry2nix][poetry2nix]].
