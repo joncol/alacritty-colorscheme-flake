@@ -25,14 +25,13 @@
       ];
     } // (flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ self.overlay ];
-        };
+        overlays = [ self.overlay ];
+        pkgs = builtins.foldl' (acc: overlay: acc.extend overlay)
+          nixpkgs.legacyPackages.${system} overlays;
       in rec {
         apps = { alacritty-colorscheme = pkgs.alacritty-colorscheme; };
         packages = pkgs.alacritty-colorscheme;
         defaultPackage = pkgs.alacritty-colorscheme;
-        devShell = pkgs.mkShell { buildInputs = [ pkgs.poetry ]; };
+        devShells.default = pkgs.mkShell { buildInputs = [ pkgs.poetry ]; };
       }));
 }
